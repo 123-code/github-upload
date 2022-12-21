@@ -1,7 +1,5 @@
-export const Resolvers = {
-    Query:{
-        greeting:()=> "Hello World!"
-
-        
-    }
-}
+export const resolvers = {
+    Query: {
+      jobs: () => [],
+    },
+  };

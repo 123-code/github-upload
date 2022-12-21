@@ -5,7 +5,10 @@ import { expressjwt } from 'express-jwt';
 import jwt from 'jsonwebtoken';
 import { User } from './db.js';
 import { readFile } from 'fs';
-import { Resolvers } from './resolvers.js';
+import { resolvers } from './resolvers.js';
+import fs from 'fs';
+
+const typeDefs =  fs.readFileSync('./schema.graphql','utf8')
 
 
 const PORT = 9000;
@@ -30,19 +33,15 @@ app.post('/login', async (req, res) => {
 });
 
 // graphql type definitions.
-const typeDefs =  readFile('./schema.graphql','utf8',function(){
-  return typeDefs
-});
 
 
-
-
-const apolloServer = new ApolloServer({typeDefs,Resolvers})
+const apolloServer = new ApolloServer({typeDefs,resolvers})
 await apolloServer.start()
 // expose graphQL server as part of the express server.
-apolloServer.applyMiddleware({app,path:'./graphql'});
+apolloServer.applyMiddleware({app,path:'/graphql'});
 
 
 app.listen({ port: PORT }, () => {
   console.log(`Server running on port ${PORT}`);
+  console.log(`endpoint: http://localhost:${PORT}/graphql`)
 });
