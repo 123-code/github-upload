@@ -13,7 +13,7 @@ query{
  }
 }
 `;
-const data = await request(GRAPHQL_SERVER_URL,query);
-console.log(data);
+const {jobs} = await request(GRAPHQL_SERVER_URL,query);
+return jobs;
 
 }
