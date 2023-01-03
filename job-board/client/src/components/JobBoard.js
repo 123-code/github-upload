@@ -1,5 +1,7 @@
 import JobList from './JobList';
 import { jobs } from '../fake-data';
+import { getJobs } from '../graphql/queries';
+getJobs();
 
 function JobBoard() {
   return (
