@@ -1,9 +1,17 @@
 import JobList from './JobList';
-import { jobs } from '../fake-data';
 import { getJobs } from '../graphql/queries';
-getJobs();
+import {useState,useEffect} from 'react';
+
+
 
 function JobBoard() {
+  const [jobs,setjobs] = useState([]);
+  // fetches the jobs when component is rendered
+useEffect(()=>{
+  console.log("mounted")
+getJobs().then((jobs)=>setjobs(jobs));
+},[]);
+console.log("jobsj",jobs);
   return (
     <div>
       <h1 className="title">
