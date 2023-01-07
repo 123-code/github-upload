@@ -1,5 +1,7 @@
 import { useParams } from 'react-router';
 import { companies } from '../fake-data';
+import JobList from './JobList';
+
 
 function CompanyDetail() {
   const { companyId } = useParams();
@@ -13,6 +15,8 @@ function CompanyDetail() {
       <div className="box">
         {company.description}
       </div>
+      <h5> Jobas at {company.name} </h5>
+      <JobList jobs={company.jobs}/>
     </div>
   );
 }
