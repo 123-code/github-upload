@@ -22,7 +22,20 @@ export async function getJob(id){
   
   }
 
-export async function getJobs(){
+  export async function createJob(input){
+    const query = gql`
+    mutation CreateJobmutation($input:CreateJobInput!){
+job: createJob(input:$input){
+  id 
+    }
+    }  `;
+    
+    const variables = {input};
+    const {job} = await request(GRAPHQL_SERVER_URL,query,variables);
+
+  }
+
+export async function getJobs(id){
 const query = gql`
 query{
  jobs {

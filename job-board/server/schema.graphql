@@ -21,5 +21,11 @@ jobs:[Job!]
 
  }
  type Mutation{
-  createJob(title:String!,companyID:ID!, description:String): Job
+  createJob(input:CreateJobinput!): Job
+ }
+
+ input CreateJobinput{
+  title:String!,
+  companyID:ID!,
+   description:String
  }
