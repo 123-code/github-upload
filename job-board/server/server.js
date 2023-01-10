@@ -9,6 +9,13 @@ import { resolvers } from './resolvers.js';
 import fs from 'fs';
 
 const typeDefs =  fs.readFileSync('./schema.graphql','utf8')
+const context = async({req})=>{
+  if(req.auth){
+   const user = await User.findById(req.auth.sub);
+   return{user}
+  }
+  return{}
+}
 
 
 const PORT = 9000;
@@ -34,8 +41,8 @@ app.post('/login', async (req, res) => {
 
 // graphql type definitions.
 
-
-const apolloServer = new ApolloServer({typeDefs,resolvers})
+//const context =({req})=> ({method:req.auth})
+const apolloServer = new ApolloServer({typeDefs,resolvers,context})
 await apolloServer.start()
 // expose graphQL server as part of the express server.
 apolloServer.applyMiddleware({app,path:'/graphql'});

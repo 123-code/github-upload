@@ -1,5 +1,6 @@
 //yarn add graphql-request
 import {request,gql } from 'graphql-request';
+import {getAccessToken} from '../auth';
 const GRAPHQL_SERVER_URL = 'http://localhost:9000/graphql'
 
 export async function getJob(id){
@@ -31,6 +32,7 @@ job: createJob(input:$input){
     }  `;
     
     const variables = {input};
+    const headers = {"Authorization":'Bearer' + getAccessToken()};
     const {job} = await request(GRAPHQL_SERVER_URL,query,variables);
 
   }

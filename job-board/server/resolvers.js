@@ -1,4 +1,4 @@
-import { Company,Job } from './db.js';
+import { Company,Job, User } from './db.js';
 export const resolvers = {
     Query: {
       company:(_root,{id})=> Company.findById(id),
@@ -22,8 +22,13 @@ return Company.findById(job.companyId);
   },
 // data modifier resolver 
 Mutation:{
-  createJob:(_root,{input})=>{
-return Job.create({input})
+  createJob:(_root,{input},{ user })=>{
+    console.log(auth);
+    if(!auth){
+      throw new Error('Unauthorized');
+    }
+    user.companyId = auth.companyId;
+return Job.create({...input,companyId:user.companyId});
   },
 }
 

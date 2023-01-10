@@ -26,6 +26,5 @@ jobs:[Job!]
 
  input CreateJobinput{
   title:String!,
-  companyID:ID!,
    description:String
  }
